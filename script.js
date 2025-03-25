@@ -36,7 +36,7 @@ const addBooks = (myData) => {
     book.classList.add("book");
     const content = `<img
             src=${bookThumbnail}
-            alt=""
+            alt=${bookTitle}
           />
           <div class="book-info">
             <div class="book-title">
