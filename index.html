@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+    />
     <title>Book Library</title>
   </head>
   <body>
@@ -11,7 +15,10 @@
     <header>
       <nav class="nav-bar">
         <h1 class="nav-heading">Book Library</h1>
-        <input type="text" placeholder="Search" class="search-bar" />
+        <div class="search-container">
+          <input type="text" placeholder="Search" class="search-bar" />
+          <i class="bi bi-search search-icon"></i>
+        </div>
         <div class="button-container">
           <button class="az-filter bttn">Sort A-Z</button>
           <button class="date-filter bttn">Sort by Date</button>
@@ -23,32 +30,14 @@
     <!-- //MAIN SECTION -->
     <section class="main-container">
       <div class="book-container">
-        <!-- VISUALISE -->
-        <!-- <div class="book">
-          <img
-            src="http://books.google.com/books/content?id=KA9QDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-            alt=""
-          />
-          <div class="book-info">
-            <div class="book-title">
-              Title: <span>Practices of an Agile Developer</span>
-            </div>
-            <div class="author">Author: <span>Venkat Subramaniam</span></div>
-            <div class="publisher">
-              Publisher: <span>Pragmatic Bookshelf</span>
-            </div>
-            <div class="published-date">
-              Published Date: <span>2006-04-04</span>
-            </div>
-            <button class="bttn">More Info</button>
-          </div> -->
+        <!-- ADD BOOK CARD DYNAMICALLY -->
       </div>
     </section>
     <!-- PAGINATION SECTION -->
     <footer>
       <div class="pagination-container">
         <!-- <a href="#" class="prev">&laquo; Prev</a> -->
-        <a href="#" class="pagination">1</a>
+        <a href="#" class="pagination active">1</a>
         <a href="#" class="pagination">2</a>
         <a href="#" class="pagination">3</a>
         <a href="#" class="pagination">4</a>

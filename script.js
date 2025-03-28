@@ -3,25 +3,8 @@ const azFilterBttn = document.querySelector(".az-filter");
 const dateFilterBttn = document.querySelector(".date-filter");
 const pagination = document.querySelectorAll(".pagination");
 const gridListViewBttn = document.querySelector(".grid-list-view");
-
-//FETCH DATA FROM API
-const fetchData = async (element) => {
-  if (!element) {
-    element = 1;
-  }
-  const url = `https://api.freeapi.app/api/v1/public/books?page=${element}&limit=10`;
-
-  try {
-    const response = await fetch(url);
-    const json = await response.json();
-    if (!json.success) {
-      throw new Error("Cannot load api");
-    }
-    return json;
-  } catch (error) {
-    console.log(error);
-  }
-};
+const searchBar = document.querySelector(".search-bar");
+const searchIcon = document.querySelector(".search-icon");
 
 // ADD BOOKS DYNAMICALLY
 const addBooks = (myData) => {
@@ -38,7 +21,7 @@ const addBooks = (myData) => {
     book.classList.add("book");
     const content = `<img
             src=${bookThumbnail}
-            alt=${bookTitle}
+            alt="${bookTitle}"
           />
           <div class="book-info">
             <div class="book-title">
@@ -57,6 +40,27 @@ const addBooks = (myData) => {
     book.innerHTML = content;
     bookContainer.appendChild(book);
   });
+};
+
+//FETCH DATA FROM API
+const fetchData = async (element) => {
+  if (!element) {
+    element = 1;
+  }
+  const url = `https://api.freeapi.app/api/v1/public/books?page=${element}&limit=10`;
+
+  try {
+    const response = await fetch(url);
+    console.log(url);
+
+    const json = await response.json();
+    if (!json.success) {
+      throw new Error("Cannot load api");
+    }
+    return json;
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 // CALL API & ADD BOOKS WHEN PAGE LOADS
@@ -93,10 +97,15 @@ dateFilterBttn.addEventListener("click", () => {
 });
 
 // CLICK ON THE PAGE NUMBER TO GET DIFFERENT BOOKS
+let toggle = document.querySelector(".active");
 pagination.forEach((element) => {
   element.addEventListener("click", async () => {
+    toggle.classList.remove("active");
     const myData = await fetchData(element.innerHTML);
     addBooks(myData);
+    console.log(pagination);
+    toggle = element;
+    element.classList.toggle("active");
   });
 });
 
@@ -123,4 +132,19 @@ gridListViewBttn.addEventListener("click", () => {
       element.style.flexDirection = "row";
     });
   }
+});
+
+// SEARCH FUNCTIONALITY
+searchBar.addEventListener("input", (word) => {
+  const bookTitle = document.querySelectorAll(".title");
+  bookTitle.forEach((element) => {
+    // loop through every span
+    const searchText = element.innerHTML.toLowerCase();
+    const isVisible = searchText.includes(word.target.value.toLowerCase()); // give boolean value if that element containes the serach text
+    element.closest(".book").classList.toggle("hide", !isVisible); // hide the parent element
+  });
+});
+
+searchIcon.addEventListener("click", () => {
+  searchBar.value = ""; // Clear the input field
 });
